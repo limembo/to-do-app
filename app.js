@@ -11,8 +11,20 @@ function onReady(){
       newLi.textContent = title;
       newLi.appendChild(checkbox);
       toDoList.appendChild(newLi);
+
       newToDoText.value = '';
     });
+}
+
+function rem() {
+    var list = document.getElementById('toDoList'),
+        items = Array.prototype.slice.call(list.childNodes),
+        item;
+    while (item = items.pop()) {
+        if (item.firstChild && item.firstChild.checked) {
+            list.removeChild(item);
+        }
+    }
 }
 
 window.onload = function(){
