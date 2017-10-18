@@ -1,31 +1,43 @@
 function onReady(){
+  //Add initial state
+    const toDos = [];
+  //Select element to manipulate
     const addToDoForm = document.getElementById('addToDoForm');
-    const newToDoText = document.getElementById('newToDoText');
-    const toDoList = document.getElementById('toDoList');
+  //Create New To-Dos or objects for our array
+    function createNewToDo() {
+      const newToDoText = document.getElementById('newToDoText');
+      if (!newToDoText) {return}
+      toDos.push({
+        title: newToDoText.value,
+        complete:false
+      });
+  // Call renderTheUI() each time state changes
+  newToDoText.value = '';
+  renderTheUI(toDos);
+
+  // Add the event listener; we want it to listen for a "submission"
     addToDoForm.addEventListener('submit', event => {
       event.preventDefault();
-      let title = newToDoText.value;
-      let newLi = document.createElement('li');
-      let checkbox = document.createElement('input');
+      createNewToDo();
+      });
+ // Add UI
+   function renderTheUI(toDos){
+    const toDoList = document.getElementById('toDoList');
+    toDoList.textContent = '';
+    toDos.forEach(function(toDo){
+// Create UI for each to-do, assign toDo's title to li and update dom with li and checkbox
+      const newLi = document.createElement('li');
+      const checkbox = document.createElement('input')
       checkbox.type = "checkbox";
-      newLi.textContent = title;
+// Add toDo's title text to newLi
+      newLi.textContent = toDo.title;
+//Update the DOM
+      todoList.appendChild(newLi);
       newLi.appendChild(checkbox);
-      toDoList.appendChild(newLi);
-
-      newToDoText.value = '';
     });
-}
-
-function rem() {
-    var list = document.getElementById('toDoList'),
-        items = Array.prototype.slice.call(list.childNodes),
-        item;
-    while (item = items.pop()) {
-        if (item.firstChild && item.firstChild.checked) {
-            list.removeChild(item);
-        }
     }
-}
+  }
+
 
 window.onload = function(){
     onReady();
