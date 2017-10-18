@@ -11,21 +11,23 @@ function onReady(){
       newLi.textContent = title;
       newLi.appendChild(checkbox);
       toDoList.appendChild(newLi);
-
+      var deleteButton = document.createElement('button');
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = deleteTask;
+      newLi.appendChild(deleteButton);
       newToDoText.value = '';
     });
 }
 
-function rem() {
-    var list = document.getElementById('toDoList'),
-        items = Array.prototype.slice.call(list.childNodes),
-        item;
-    while (item = items.pop()) {
-        if (item.firstChild && item.firstChild.checked) {
-            list.removeChild(item);
-        }
-    }
+  //Delete an existing task
+var deleteTask = function() {
+  var newLi = this.parentNode;
+  var toDoList = newLi.parentNode;
+
+  //Remove the parent list item from the ul
+  toDoList.removeChild(newLi);
 }
+
 
 window.onload = function(){
     onReady();
