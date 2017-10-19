@@ -28,13 +28,22 @@ function onReady(){
 // Create UI for each to-do, assign toDo's title to li and update dom with li and checkbox
       const newLi = document.createElement('li');
       const checkbox = document.createElement('input');
+      const deleteButton = document.createElement('button');
       checkbox.type = "checkbox";
+      deleteButton.onclick = deleteTask;
 // Add toDo's title text to newLi
+      deleteButton.textContent = "Delete";
       newLi.textContent = toDo.title;
 //Update the DOM
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
+      newLi.appendChild(deleteButton);
     });
+    function deleteTask() {
+      var newLi = this.parentNode;
+        var toDoList = newLi.parentNode;
+         toDoList.removeChild(newLi);
+       }
     }
   }
 
